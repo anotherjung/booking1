@@ -1,14 +1,33 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<ul>
-  <li class="text" *ngFor="let item of items | async">
-    {{item.name}}
-  </li>
-</ul>
+<main>
+  <h3>Google Calendar + Firebase</h3>
+  <p>Welcome to AngularFirebase world </p>
 
+  <div *ngIf="auth.user$ | async as user">
+      <h3>Logged in as {{ user.displayName }}</h3>
+      <img src="{{ user.photoURL }}" width="50px">
+  </div>
+
+
+  <button (click)="auth.login()" class="button is-danger">Login with Google</button>
+
+  <button (click)="auth.logout()" class="button">Logout</button>
+
+  <hr>
+
+  <div *ngIf="auth.user$ | async">
+
+      <button (click)="auth.getCalendar()" class="button is-success">Get Google Calendar</button>
+      <button (click)="auth.insertEvent()" class="button is-warning">Add Event</button>
+
+      <div *ngFor="let item of auth.calendarItems">
+          <h3>{{ item.summary }} - {{ item.status }}</h3>
+          <p><em>Created {{ item.created }}</em></p>
+          <p>{{ item.description }}</p>
+          <hr>
+      </div>
+
+  </div>
+
+</main>
 <router-outlet></router-outlet>
+
